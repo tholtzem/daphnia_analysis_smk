@@ -1,0 +1,9 @@
+.snakemake/
+log/*
+*.log
+*.gz
+*.fq
+*.fastq
+*.vcf
+*.bcf
+rules/old
