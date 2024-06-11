@@ -63,5 +63,14 @@ see rules/pixy.smk
 
 ## Infering species and lineage trees with SVDQ in paup
 ### using SNPs without maf-filter
-note: the svdq-step requires some manual adjustments of input files!!!
-see rules/svdq.smk
+notes to rules/svdq.smk:
+* prune_SNPdistance and vcf2phylip_svdq can be performed using snakemake
+* the svdq-step should preferably executed manually, as it requires some manual adjustments of the input files, such as the taxon partition file and the paup-batch script.
+Execute with f.ex.
+
+```
+# for species tree
+paup4a169_ubuntu64 -n analyses/svdq/PaupBlock_SPECIEStree_outgroup.batch
+# for lineage tree
+paup4a169_ubuntu64 -n analyses/svdq/PaupBlock_SPECIEStree_outgroup.batch
+```
