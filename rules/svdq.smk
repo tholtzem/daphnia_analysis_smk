@@ -16,7 +16,7 @@ rule vcf2phylip_svdq:
   input:
     vcf = 'bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.vcf.gz'
   output:
-    nexus_vcf = 'analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus'
+    nexus_vcf = 'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus'
   log:
     'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_nexus.log'
   threads: 2
@@ -30,13 +30,13 @@ rule vcf2phylip_svdq:
 
 rule svdq_SPECIEStree:
   input:
-    nexus_vcf = 'analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus',
-    taxpart = 'analyses/svdq/daphnia_taxpartitions.nex',
-    batch = 'analyses/svdq/PaupBlock_SPECIEStree.batch'
+    nexus_vcf = 'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus',
+    taxpart = 'analyses/svdq/SNPs/daphnia_taxpartitions.nex',
+    batch = 'analyses/svdq/SNPs/PaupBlock_SPECIEStree_{outgroup}.batch'
   output:
-    'analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted.nwk'
+    touch('analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}.done')
   log:
-    'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted.log'
+    'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}.log'
   threads: 4
   message: """ --- Interference of species tree using SVDquartet in Paup* --- """
   shell:
@@ -47,11 +47,11 @@ rule svdq_SPECIEStree:
 
 rule svdq_LINEAGEtree:
   input:
-    nexus_vcf = 'analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus',
-    taxpart = 'analyses/svdq/daphnia_taxpartitions.nex',
-    batch = 'analyses/svdq/PaupBlock_LINEAGEtree.batch'
+    nexus_vcf = 'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus',
+    taxpart = 'analyses/svdq/SNPs/daphnia_taxpartitions.nex',
+    batch = 'analyses/svdq/SNPs/PaupBlock_LINEAGEtree.batch'
   output:
-    'analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted.nwk'
+    'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted.done'
   log:
     'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted.log'
   threads: 4

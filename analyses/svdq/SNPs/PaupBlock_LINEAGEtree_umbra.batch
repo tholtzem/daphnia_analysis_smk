@@ -1,0 +1,19 @@
+#nexus
+
+begin paup;
+	set autoclose=yes warntree=no warnreset=no;
+	log start file=daphnia_init_10pops_MQ40_DPminmaxIQR_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted_umbra.log replace=yes;
+	execute daphnia_taxpartitions.nex;
+	showtpart SPECIES;
+	delete SPECIES.curvirostris;
+	showtpart SPECIES2;
+	outgroup SPECIES2.umbra;
+	svdq evalQuartets=random nquartets=100000 preferAllQ=yes taxpartition=none treeInf=QFM bootstrap=standard nreps=100 nthreads=4 showScores=no replace=yes treeFile=daphnia_init_10pops_MQ40_DPminmaxIQR_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_umbra.tre treemodel=mscoalescent ambigs=distribute;
+	saveTrees file=daphnia_init_10pops_MQ40_DPminmaxIQR_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_UNrooted_umbra.nex format=Nexus root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	saveTrees file=daphnia_init_10pops_MQ40_DPminmaxIQR_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_UNrooted_umbra.nwk format=Newick root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	rootTrees rootMethod=outgroup;
+	saveTrees file=daphnia_init_10pops_MQ40_DPminmaxIQR_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted_umbra.nex format=Nexus root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	saveTrees file=daphnia_init_10pops_MQ40_DPminmaxIQR_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted_umbra.nwk format=Newick root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	log stop;
+
+end;

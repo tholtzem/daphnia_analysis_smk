@@ -27,12 +27,11 @@ mamba env update --name da_analysis --file envs/s21.yaml
 
 ```
 
-#### python2 env
+#### Some softwares cannot be installed via conda and require manual installation 
 
-```
-mamba env create -f envs/py2.yaml
-
-```
+* evalAdmix
+* PAUP
+* Dsuite 
 
 ## Plotting stats and hard-filter all-sites bcf for average site-level using bcftools
 here: INFO/DP (2x meanDP or HengLi max depth treshold) and MQ (mapping quality)
@@ -69,8 +68,16 @@ notes to rules/svdq.smk:
 Execute with f.ex.
 
 ```
-# for species tree
-paup4a169_ubuntu64 -n analyses/svdq/PaupBlock_SPECIEStree_outgroup.batch
-# for lineage tree
-paup4a169_ubuntu64 -n analyses/svdq/PaupBlock_SPECIEStree_outgroup.batch
+# for species tree using SNPs
+paup4a169_ubuntu64 -n analyses/svdq/SNP/PaupBlock_SPECIEStree_outgroup.batch
+# for species tree using mitochondrial PCGs (protein coding genes)
+paup4a169_ubuntu64 -n analyses/svdq/SNP/PaupBlock_SPECIEStree_outgroup_mito.batch
+# for lineage tree using SNPs
+paup4a169_ubuntu64 -n analyses/svdq/SNP/PaupBlock_SPECIEStree_outgroup.batch
+
 ```
+
+
+## Testing for gene-flow with Dsuite
+### using SNPs
+see rules/dsuite.smk

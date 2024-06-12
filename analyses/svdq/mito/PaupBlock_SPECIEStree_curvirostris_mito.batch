@@ -1,0 +1,17 @@
+#nexus
+
+begin paup;
+	set autoclose=yes warntree=no warnreset=no;
+	log start file=refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_curvirostris.log replace=yes;
+	execute daphnia_taxpartitions.nex;
+	showtpart SPECIES;
+	outgroup SPECIES.curvirostris;
+	svdq evalQuartets=all nquartets=100000 preferAllQ=yes loci=MULTILOCI taxpartition=SPECIES treeInf=QFM bootstrap=multilocus nreps=100 nthreads=4 showScores=no replace=yes treeFile=refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_curvirostris.tre treemodel=mscoalescent ambigs=distribute;
+	saveTrees file=refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_UNrooted_curvirostris.nex format=Nexus root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	saveTrees file=refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_UNrooted_curvirostris.nwk format=Newick root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	rootTrees rootMethod=outgroup;
+	saveTrees file=refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_curvirostris.nex format=Nexus root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	saveTrees file=refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_curvirostris.nwk format=Newick root=yes brlens=no supportValues=nodeLabels maxDecimals=6 trees=all;
+	log stop;
+
+end;
