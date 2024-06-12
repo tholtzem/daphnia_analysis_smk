@@ -7,9 +7,7 @@ log/*
 *.vcf
 *.bcf
 rules/old
-rules/admixtool2.smk
-rules/scikit-allel.smk
+rules/admixtools2.smk
+rules/scikit_allel.smk
 rules/ngsRelate.smk
 rules/LD_decay.smk
-rules/vcf_stats_filtering.smk
-rules/refomrat_VCF.smk

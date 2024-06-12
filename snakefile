@@ -22,26 +22,30 @@ rule all:
 		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['final_68.vcf.gz']),
 		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['final_68_updated.vcf.gz']),
 		### ----- get SNPs with mafs ----- ###
-		expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['vcf.gz']),
+		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['vcf.gz']),
 		### ----- get SNPs without mafs ----- ###
-		expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['vcf.gz']),
+		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['vcf.gz']),
 		### ----- admixture ----- ###
-		expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['LD_pruning.done']),
-		expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['LD_pruning.bed.done']),
-		expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['LD_pruning.chromNames.done']),
-		expand('analyses/admixture/log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.LD_pruning_admixture_K{K}_log.out', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], K=range(2,16)),
-		expand( 'analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], ext=['png']),
-		expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], ext=['LD_pruning_admixture.CV.error']),
-		expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}_K{K}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], K=range(2,16), ext=['evaladmixOut.corres']),
+		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['LD_pruning.done']),
+		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['LD_pruning.bed.done']),
+		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['LD_pruning.chromNames.done']),
+		#expand('analyses/admixture/log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.LD_pruning_admixture_K{K}_log.out', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], K=range(2,16)),
+		#expand( 'analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], ext=['png']),
+		#expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], ext=['LD_pruning_admixture.CV.error']),
+		#expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}_K{K}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], K=range(2,16), ext=['evaladmixOut.corres']),
 		#expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}_virids.done', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05']),
 		### ----- pixy ----- ###
-		expand('analyses/pixy/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['pixy.done']),
+		#expand('analyses/pixy/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['pixy.done']),
+		### ---- svdq ---- ###
+		#expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['pruned.vcf.gz']),
+		#expand('analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['pruned.min4.nexus']),
+		##expand('analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}.{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['umbra'], ext=['log']),
+		##expand('analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted_{outgroup}.{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['umbra'], ext=['log']),
 		### ----- Dsuite ---- ###
-		expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['pruned.vcf.gz']),
-		expand('analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], ext=['pruned.min4.nexus']),
-		##expand('analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}.{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['umbra'], ext=['log']),
-		##expand('analyses/svdq/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_LINEAGEtree_SVDQ_boostrapSTD_rooted_{outgroup}.{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['umbra'], ext=['log']),
-		### ----- Dsuite ---- ###
+		expand('analyses/Dsuite/trees/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}_{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['curvirostris', 'umbra'], ext=['rf.nwk']),
+		expand('analyses/Dsuite/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['curvirostris', 'umbra'], ext=['Dtrios_test.done']),
+		expand('analyses/Dsuite/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['curvirostris', 'umbra'], ext=['Dtrios_svdq.done']),
+		expand('analyses/Dsuite/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_{ext}', species=['init_10pops'], MQ=['40'], DPmax=['IQR'], outgroup=['curvirostris', 'umbra'], ext=['Dtrios_svdq_Fbranch.txt'])
 		###expand('analyses/ngsRelate/daphnia_{species}.{ext}', species=['curvirostris', 'cucullata', 'dentifera', 'galeata', 'lacustris', 'longispina', 'longispinaFIN', 'mendotae', 'umbra', 'zschokkei'], ext=['vcf.gz','alleles_lmiss20_maf0.01.vcf.gz','alleles_lmiss20_maf0.01.ids.txt']),
 		#expand('analyses/ngsRelate/daphnia_{species}.{ext}', species=['curvirostris', 'cucullata', 'dentifera', 'galeata', 'longispina', 'longispinaFIN', 'mendotae', 'umbra', 'zschokkei'], ext=['alleles_lmiss20_maf0.01.filtered.stats.txt']),
 		#expand('analyses/ngsRelate/plot_ngsRelate_{species}.done', species=['curvirostris', 'cucullata', 'dentifera', 'galeata', 'longispina', 'longispinaFIN', 'mendotae', 'umbra', 'zschokkei']),
@@ -64,10 +68,11 @@ rule all:
 
 #include: "rules/hardfilter_allSites.smk"
 #include: "rules/genotypefilter_allSites.smk"
-include: "rules/get_SNPs.smk"
-include: "rules/admixture.smk"
-include: "rules/pixy.smk"
-include: "rules/svdq.smk"
+#include: "rules/get_SNPs.smk"
+#include: "rules/admixture.smk"
+#include: "rules/pixy.smk"
+#include: "rules/svdq.smk"
+include: "rules/dsuite.smk"
 ##include: "rules/scikit_allel.smk"
 ##include: "rules/ngsRelate.smk"
 ##include: "rules/LD_decay.smk"
