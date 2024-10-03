@@ -14,17 +14,20 @@ rule prune_SNPdistance:
 
 rule vcf2phylip_svdq:
   input:
-    vcf = 'bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.vcf.gz'
+    #vcf = 'bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.vcf.gz'
+    vcf = 'bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs.vcf.gz'
   output:
-    nexus_vcf = 'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus'
+    #nexus_vcf = 'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus',
+    nexus_vcf = 'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs.min4.nexus'
   log:
-    'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_nexus.log'
+    #'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_nexus.log'
+    'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_nexus.log'
   threads: 2
   message: """ --- Convert vcf2nexus using vcf2phylip.py --- """
   shell:
     """
     ./scripts/vcf2phylip.py --input {input.vcf} --nexus &&
-    mv bcf/filtered/{wildcards.DPmax}/daphnia_{wildcards.species}_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites80_final_68_updated_SNPs_pruned.min4.nexus {output} 2> {log}
+    mv bcf/filtered/{wildcards.DPmax}/daphnia_{wildcards.species}_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites80_final_68_updated_SNPs.min4.nexus {output} 2> {log}
     """
 
 
@@ -34,14 +37,14 @@ rule svdq_SPECIEStree:
     taxpart = 'analyses/svdq/SNPs/daphnia_taxpartitions.nex',
     batch = 'analyses/svdq/SNPs/PaupBlock_SPECIEStree_{outgroup}.batch'
   output:
-    touch('analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}.done')
+    'analyses/svdq/SNPs/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}.done'
   log:
     'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}.log'
   threads: 4
   message: """ --- Interference of species tree using SVDquartet in Paup* --- """
   shell:
     """
-    paup4a169_ubuntu64 -n {input.batch} 2> {log}
+    paup4a169_ubuntu64 -n {input.batch} & touch analyses/svdq/SNPs/daphnia_{wildcards.species}_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites80_final_68_updated_SNPs_pruned_SPECIEStree_SVDQ_boostrapSTD_rooted_{wildcards.outgroup}.done
     """
 
 
