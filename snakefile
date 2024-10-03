@@ -51,10 +51,17 @@ rule all:
 		expand('bcf/variants/{DPmax}/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_maf{maf}.{ext}', sites_set=['set2', 'set2B','set4'], MQ=['30'],  DPmax=['IQR'], GT=['100'], maf=['0.01'], ext=['LD_pruning.bed.done']),
 		expand('bcf/variants/{DPmax}/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_maf{maf}.{ext}', sites_set=['set2', 'set2B','set4'], MQ=['30'],  DPmax=['IQR'], GT=['100'], maf=['0.01'], ext=['LD_pruning.chromNames.done']),
 		expand('analyses/admixture/log/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_maf{maf}.LD_pruning_admixture_K{K}_log.out', sites_set=['set2', 'set2B','set4'], MQ=['30'],  DPmax=['IQR'], GT=['100'], maf=['0.01'], K=range(2,16)),
-		expand('analyses/admixture/log/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_maf{maf}.LD_pruning.{ext}', sites_set=['set4'], MQ=['30'],  DPmax=['IQR'], GT=['100'], maf=['0.01'], ext=['png']),
-		#expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], ext=['LD_pruning_admixture.CV.error']),
+		## adjust plotting script
+		#expand('analyses/admixture/data/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_maf{maf}.{ext}', sites_set=['set2'], MQ=['30'], DPmax=['IQR'], GT=['100'], maf=['0.01'], ext=['png']),
+		expand('analyses/admixture/data/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_maf{maf}.{ext}', sites_set=['set2', 'set2B','set4'], MQ=['30'], DPmax=['IQR'], GT=['100'], maf=['0.01'], ext=['LD_pruning_admixture.CV.error']),
 		#expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}_K{K}.{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05', '0.1'], K=range(2,16), ext=['evaladmixOut.corres']),
 		#expand('analyses/admixture/data/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_maf{maf}_virids.done', species=['init_10pops'], MQ=['30', '40'], DPmax=['IQR'], maf=['0.01', '0.05']),
+		### ----- Dsuite using mito tree ---- ###
+		expand('analyses/Dsuite/mito/refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}_rf.nwk', outgroup=['curvirostris', 'umbra', 'curvirostris2'], ext=['rf.nwk']),
+		#expand('analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_{ext}', zip, sites_set=['set1', 'set2', 'set2B', 'set3'], MQ=['30', '30', '30', '30'], DPmax=['IQR', 'IQR', 'IQR', 'IQR'], GT=['100', '100', '100', '100'], outgroup=['curvirostris', 'umbra', 'umbra', 'curvirostris2'], ext=['Dtrios_mitosvdq_tree.txt']),
+		expand('analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_{ext}', zip, sites_set=['set1', 'set2', 'set2B', 'set3'], MQ=['30']*4, DPmax=['IQR']*4, GT=['100']*4, outgroup=['curvirostris', 'umbra', 'umbra', 'curvirostris2'], ext=['Dtrios_mitosvdq_tree.txt']*4)
+		#expand('analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_{ext}', zip, sites_set=['set1', 'set2', 'set2B', 'set3'], MQ=['30'], DPmax=['IQR'], GT=['100'], outgroup=['curvirostris', 'umbra', 'umbra', 'curvirostris2'], ext=['Dtrios_mitosvdq_Fbranch.txt']),
+		#expand('analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_{ext}', zip, sites_set=['set1', 'set2', 'set2B', 'set3'], MQ=['30'], DPmax=['IQR'], GT=['100'], outgroup=['curvirostris', 'umbra', 'umbra', 'curvirostris2'], ext=['Dtrios_mitosvdq_Fbranch.png', 'Dtrios_mitosvdq_Fbranch.svg']),
 		#expand('bcf/filtered/{DPmax}/daphnia_init_10pops_MQ{MQ}_DPminmax{DPmax}_sites_final_68_updated_SNPs_maf{maf}.{ext}', species=['init_10pops'], MQ=['30'], DPmax=['IQR'], maf=['0.01', '0.05'], ext=['vcf.gz']),
 		### ----- bcf2vcf ----- ### 
 		##expand('bcf/filtered/{DPmax}/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['HengLi'], ext=['final.vcf.gz']),## skip for now
@@ -78,11 +85,6 @@ rule all:
 		#expand('analyses/twisst/{sets}/fixedtrees_daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs.phyml_{inf}.{N}w_{window}_{pop1}_{pop2}_{pop3}_{pop4}_{pop5}_{pop6}_{outgroup}_{ext}', sets=['ldgmcu'], species=['init_10pops'], MQ=['30', '40'], DPmax=['HengLi', 'IQR'], inf=['ML'], N=['50'], window=['sites'], pop1=['cucullata'], pop2=['galeata'], pop3=['mendotae'], pop4=['longispina'], pop5=['dentifera'], pop6=['umbra'], outgroup=['curvirostris'], ext=['weights.csv.gz', 'topos.nwk']),
 		#### ----- Dsuite using notree ---- ###		
 		#expand('analyses/Dsuite/Dtrios_test/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['HengLi', 'IQR'], outgroup=['curvirostris', 'umbra', 'curvirostris2'], ext=['Dtrios_test.done']),
-		### ----- Dsuite using mito tree ---- ###
-		#expand('analyses/Dsuite/mito/refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}_rf.nwk', outgroup=['curvirostris', 'umbra', 'curvirostris2'], ext=['rf.nwk']),
-		#expand('analyses/Dsuite/mito/daphnia_popfile_{outgroup}_daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['HengLi', 'IQR'], outgroup=['curvirostris', 'umbra', 'curvirostris2'], ext=['Dtrios_mitosvdq_tree.txt']),
-		#expand('analyses/Dsuite/mito/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['HengLi', 'IQR'], outgroup=['curvirostris', 'umbra', 'curvirostris2'], ext=['Dtrios_mitosvdq_Fbranch.txt']),
-		#expand('analyses/Dsuite/mito/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['HengLi', 'IQR'], outgroup=['curvirostris', 'umbra', 'curvirostris2'], ext=['Dtrios_mitosvdq_Fbranch.png', 'Dtrios_mitosvdq_Fbranch.svg']),
 		### ----- Dsuite using SNPtree ---- ###
 		#expand('analyses/Dsuite/SNP/daphnia_topology{topo}_{outgroup}_rf.nwk', outgroup=['curvirostris', 'umbra'], topo=range(1,4)),
 		#expand('analyses/Dsuite/SNP/daphnia_popfile_{outgroup}_daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_topology{topo}_{outgroup}_{ext}', species=['init_10pops'], MQ=['30', '40'], DPmax=['HengLi', 'IQR'], outgroup=['curvirostris', 'umbra'], topo=range(1,4), ext=['Dtrios_svdq_tree.txt']),
@@ -128,11 +130,11 @@ include: "rules/hardfilter_variantSites.smk"
 include: "rules/genotypefilter_variantSites.smk"
 include: "rules/get_SNPs.smk"
 include: "rules/admixture.smk"
+include: "rules/dsuite.smk"
 #include: "rules/isec_common_allSites.smk"
 #include: "rules/svdq.smk"
 #include: "rules/fasttree.smk"
 #include: "rules/twisst.smk"
-#include: "rules/dsuite.smk"
 ##include: "rules/scikit_allel.smk"
 ##include: "rules/ngsRelate.smk"
 ##include: "rules/LD_decay.smk"

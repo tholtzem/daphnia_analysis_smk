@@ -47,29 +47,29 @@ rule reformat_speciestrees_mito:
 
 rule Dtrios_svdqtree_mito:
   input:
-    vcf = 'bcf/variants/{DPmax}/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs.vcf.gz'
-    species_sets = 'analyses/Dsuite/daphnia_popfile_{outgroup}.tsv',
+    vcf = 'bcf/variants/{DPmax}/daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs.vcf.gz',
+    species_sets = 'analyses/Dsuite/daphnia_popfile_{sites_set}_{outgroup}.tsv',
     nwk = 'analyses/Dsuite/mito/refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}_rf.nwk'
   output:
-    f_G = 'analyses/Dsuite/mito/daphnia_popfile_{outgroup}_daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_tree.txt'
-  log: 'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq.log'
+    f_G = 'analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_tree.txt'
+  log: 'log/daphnia_popfile_{sites_set}_{outgroup}daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_tree.log'
   threads: 4
   message: """ -- Calculate Dstats and f4-ratio stats for all possible trios of species using mito tree --- """
   shell:
     """
     Dsuite=(~/bio/Dsuite/Build/Dsuite)
-    $Dsuite Dtrios -c -t {input.nwk} -n daphnia_{wildcards.species}_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites80_final_68_updated_SNPs_{wildcards.outgroup}_Dtrios_mitosvdq {input.vcf} {input.species_sets} &&
-    mv analyses/Dsuite/daphnia_popfile_{wildcards.outgroup}_daphnia_{wildcards.species}_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites80_final_68_updated_SNPs_{wildcards.outgroup}_Dtrios_mitosvdq* analyses/Dsuite/mito/
+    $Dsuite Dtrios -c -t {input.nwk} -n daphnia_{wildcards.sites_set}_variants_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites_DP10_GQ30_GT{wildcards.GT}_SNPs_Dtrios_mitosvdq {input.vcf} {input.species_sets} &&
+    mv analyses/Dsuite/daphnia_popfile_{wildcards.sites_set}_{wildcards.outgroup}_daphnia_{wildcards.sites_set}_variants_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites_DP10_GQ30_GT{wildcards.GT}_SNPs_Dtrios_mitosvdq* analyses/Dsuite/mito/
     """
 
 
 rule Fbranch_mito:
   input:
     nwk = 'analyses/Dsuite/mito/refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}_rf.nwk',
-    f_G = 'analyses/Dsuite/mito/daphnia_popfile_{outgroup}_daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_tree.txt'
+    f_G = 'analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_tree.txt'
   output:
-    fbranch = 'analyses/Dsuite/mito/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_Fbranch.txt'
-  log: 'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_Fbranch.txt'
+    fbranch = 'analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_Fbranch.txt'
+  log: 'log/daphnia_popfile_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_Fbranch.log'
   threads: 1
   message: """ --- Use fbranch to aid the interpretation of the f4-ratio results --- """
   shell:
@@ -80,17 +80,17 @@ rule Fbranch_mito:
 
 rule plot_Fbranch_mito:
   input:
-    fbranch = 'analyses/Dsuite/mito/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_Fbranch.txt',
+    fbranch = 'analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_Fbranch.txt',
     nwk = 'analyses/Dsuite/mito/refs_mitoPCG_NT_SPECIEStree_SVDQ_boostrapSTD_rooted_{outgroup}_rf.nwk'
   output:
-    png = 'analyses/Dsuite/mito/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_Fbranch.png',
-    svg = 'analyses/Dsuite/mito/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_Fbranch.svg'
-  log: 'log/daphnia_{species}_MQ{MQ}_DPminmax{DPmax}_sites80_final_68_updated_SNPs_{outgroup}_Dtrios_mitosvdq_Fbranchplot.log'
+    png = 'analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_Fbranch.png',
+    svg = 'analyses/Dsuite/mito/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_Fbranch.svg'
+  log: 'log/daphnia_popfile_{sites_set}_{outgroup}_daphnia_{sites_set}_variants_MQ{MQ}_DPminmax{DPmax}_sites_DP10_GQ30_GT{GT}_SNPs_Dtrios_mitosvdq_Fbranch.log'
   threads: 1
   message: """ --- Plot the output of Dsuite fbranch  --- """
   shell:
     """
-    dtools.py -n analyses/Dsuite/mito/daphnia_{wildcards.species}_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites80_final_68_updated_SNPs_{wildcards.outgroup}_Dtrios_mitosvdq_Fbranch --outgroup {wildcards.outgroup} {input.fbranch} {input.nwk} --tree-label-size 8 2> {log}
+    dtools.py -n analyses/Dsuite/mito/daphnia_popfile_{wildcards.sites_set}_{wildcards.outgroup}_daphnia_{wildcards.sites_set}_variants_MQ{wildcards.MQ}_DPminmax{wildcards.DPmax}_sites_DP10_GQ30_GT{wildcards.GT}_SNPs_Dtrios_mitosvdq_Fbranch --outgroup Outgroup {input.fbranch} {input.nwk} --tree-label-size 8 2> {log}
     """
 
 
